@@ -15,6 +15,10 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   adapter: PrismaAdapter(prisma),
+  session: {
+    maxAge: 60 * 30,
+    updateAge: 60 * 30,
+  },
   callbacks: {
     session({ session, user }) {
       session.user.id = user.id;

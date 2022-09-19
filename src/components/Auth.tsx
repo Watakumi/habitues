@@ -9,6 +9,7 @@ export default function Auth(): JSX.Element {
       <>
         <p className='font-mono'>Signed in as {session.user?.email}</p>
         <p>{session?.user?.id}</p>
+        <p>hoge</p>
 
         <button className='font-mono' onClick={() => signOut()}>
           Sign out
