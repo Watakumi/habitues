@@ -3,8 +3,16 @@ import Head from "next/head";
 import Image from "next/image";
 import Auth from "@/components/Auth";
 import styles from "@/styles/Home.module.css";
+import { trpc } from "../utils/trpc";
+import React from "react";
 
 const Home: NextPage = () => {
+  const { data: posts, error, status } = trpc.useQuery(["postsfindAll"]);
+
+  if (status == "loading") {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,6 +22,16 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        <div>
+          <React.Fragment>
+            {posts?.map((post) => (
+              <h1 key={post.id} className={styles.title}>
+                {post.content}
+              </h1>
+            ))}
+          </React.Fragment>
+        </div>
+
         <h1 className={styles.title}>
           Welcome to <a href='https://nextjs.org'>Next.js!</a>
         </h1>
